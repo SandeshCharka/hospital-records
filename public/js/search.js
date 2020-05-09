@@ -43,10 +43,9 @@ $(document).ready(function () {
         for (var [key, value] of formData.entries()) {
             newformObj[key] = value;
         }
+        // console.log(newformObj);
         var id;
         var docPatients = "";
-
-        // $("#docSearchResults").html("");
 
         if (formData.get('searchPatientID')) {
             id = formData.get('searchPatientID')
@@ -54,45 +53,42 @@ $(document).ready(function () {
             id = formData.get('searchPatientName')
         } else if (formData.get('searchPatientDoctorID')) {
             id = formData.get('searchPatientDoctorID')
+            // Retrieve data from *patients* table based off *Doctor ID*
             $.get("/api/patients/doc/" + id).then(function (data) {
                 for (var i = 0; i < data.length; i++) {
                     var li = `<li> Patient ID: <b>${data[i].id}</b> Patient Name: <b>${data[i].name}</b></li>`
                     docPatients += li
-                    $("#docSearchResults").html(docPatients);
                 }
+                $("#docSearchResults").html(docPatients);
             });
+            // Hide/show Divs and Reset Values
             $(".divSearchSubmitButton").hide();
             $("#patientSearchResults").hide();
             $("#docSearchResults").show();
             $("#searchPatientDoctorID").val("");
             return;
         }
-
+        // Retrieve data from *patients* table based off *Patients ID*
         $.get("/api/patients/" + id).then(function (data) {
-
-            $("#docSearchResults").hide();
-            var docID = data[0].DoctorId;
-
+            
             $("#patientIdText").text(`${data[0].id}`);
             $("#patientNameText").text(`${data[0].name}`);
             $("#patientMedText").text(`${data[0].medicalHistory}`);
 
+            var docID = data[0].DoctorId;
+            // Retrieve data from *doctors* table based off *Foreign key*
             $.get("/api/doctors/" + docID).then(function (data) {
                 $("#patientDocText").text(`${data[0].name}`)
             });
-
+            $("#docSearchResults").hide();
             $("#patientSearchResults").show();
-            // $("#divSearchResults").append().html(`<ul><li> ID: ${data[0].id} </li><li> Name: ${data[0].name} </li><li> MedHis: ${data[0].medicalHistory} </li></ul>`);
         });
 
-        console.log(newformObj);
-
+        // Reset all selected values
         $("#searchPatientID").val("")
         $("#searchPatientName").val("")
         $("#searchPatientDoctorID").val("")
+        // Rehide submit button after search is done.
         $(".divSearchSubmitButton").hide();
-
-        // $("#searchForm").reset();
-        // document.getElementById('searchForm').reset();
     });
 });
