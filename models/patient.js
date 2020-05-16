@@ -1,4 +1,4 @@
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   var Patient = sequelize.define("Patient", {
 
 
@@ -6,20 +6,24 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    medicalHistory: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    }
 
   });
 
-  Patient.associate = function (models) {
+  Patient.associate = function(models) {
     Patient.belongsTo(models.Doctor, {
       foreignKey: {
         allowNull: false
       }
     })
   }
+
+  Patient.associate = function(models) {
+    // Associating Author with Posts
+    // When an Author is deleted, also delete any associated Posts
+    Patient.hasMany(models.medicalhistory, {
+      onDelete: "cascade"
+    });
+  };
 
   return Patient;
 };

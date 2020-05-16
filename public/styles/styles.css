@@ -1,3 +1,6 @@
-.list-group-item {
-  line-height: 2.5
+body {
+  background-image: url("/img/HospitalBG.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
 }

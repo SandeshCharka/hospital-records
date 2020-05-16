@@ -82,17 +82,20 @@
                 <li>Patient ID: <b><span id="patientIdText"></span></b></li>
                 <li>Patient Name: <b><span id="patientNameText"></span></b></li>
                 <li>Patient Doctor: <b><span id="patientDocText"></span></b></li>
-                <li>Patient Medical History: <b><span id="patientMedText"></span></b>
-                  <ul>
-                    <li>yeet</li>
-                    <li>yeet</li>
-                    <li>yeet</li>
-                  </ul>
+                <li>Patient Medical History:
+                  <ul id="patientMedText"></ul>
                 </li>
                 <br>
-                <button class="btn btn-primary" type="submit">Edit Medical History</button>
+                <button id="editMedicalButton" class="btn btn-primary" type="submit">Edit Medical History</button>
               </div>
             </ul>
+            <div id="editMedicalDiv">
+              <form>
+                <input id="addMedicalHistoryInput" placeholder="" class="form-control" type="text" oninvalid="this.setCustomValidity('Enter Medical History')" oninput="this.setCustomValidity('')" required>
+                <br>
+                <button id="addMedicalHistoryButton" class="btn btn-primary" type="submit">Add Medical History to Patient</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

@@ -47,4 +47,34 @@ module.exports = function(app) {
       res.json(results);
     });
   });
+
+  // Find all medicalhistory of patient by patient ID
+  app.get("/api/patients/medicalhistory/:id", function(req, res) {
+    var id = req.params.id
+
+    medicaldb.medicalhistory.findAll({
+      where: {
+        PatientId: id,
+      }
+    }).then(function(results) {
+      res.json(results);
+    });
+  });
+
+  // Update Patient Medical History
+  app.put("/api/patients/:id", function(req, res) {
+    var id = req.params.id;
+
+    medicaldb.Patient.update({
+      medicalHistory: "yeet",
+    }, {
+      where: { id: id }
+    }).then(function() {
+      if (result.changedRows === 0) {
+        // If no rows were changed, then the ID must not exist, so 404
+        return res.status(404).end();
+      }
+      res.status(200).end();
+    });
+  });
 };
