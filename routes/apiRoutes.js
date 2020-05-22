@@ -61,20 +61,14 @@ module.exports = function(app) {
     });
   });
 
-  // Update Patient Medical History
-  app.put("/api/patients/:id", function(req, res) {
-    var id = req.params.id;
+  // Create new medicalhistory data of patient
+  app.post("/api/patients/:id", function(req, res) {
 
-    medicaldb.Patient.update({
-      medicalHistory: "yeet",
-    }, {
-      where: { id: id }
-    }).then(function() {
-      if (result.changedRows === 0) {
-        // If no rows were changed, then the ID must not exist, so 404
-        return res.status(404).end();
-      }
-      res.status(200).end();
+    medicaldb.medicalhistory.create(req.body).then(function(result) {
+      res.json({
+        id: result.dataValues.id
+      })
     });
   });
+
 };

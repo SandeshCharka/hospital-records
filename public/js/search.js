@@ -114,6 +114,7 @@ $(document).ready(function() {
     $("#editMedicalDiv").show();
   });
 
+  // Create new data entry of *medicalhistory* of *patient*.
   $("#addMedicalHistoryButton").on("click", function(event) {
 
     event.preventDefault();
@@ -122,15 +123,21 @@ $(document).ready(function() {
 
     console.log(id);
     console.log(medhis);
-    console.log(rawData);
 
     $.ajax("/api/patients/" + id, {
-      type: "PUT",
-      data: "",
+      type: "POST",
+      data: {
+        data: medhis,
+        PatientId: id,
+      }
     }).then(function() {
 
-    });
+      alert("Patient medical data added.")
 
-  });
+      location.reload();
+
+    });
+  })
+
 
 });
