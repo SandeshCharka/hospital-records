@@ -124,7 +124,7 @@ $(document).ready(function() {
     console.log(id);
     console.log(medhis);
 
-    $.ajax("/api/patients/" + id, {
+    $.ajax("/api/patients/medicalhistory/" + id, {
       type: "POST",
       data: {
         data: medhis,

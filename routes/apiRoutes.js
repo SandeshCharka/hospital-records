@@ -62,9 +62,19 @@ module.exports = function(app) {
   });
 
   // Create new medicalhistory data of patient
-  app.post("/api/patients/:id", function(req, res) {
+  app.post("/api/patients/medicalhistory/:id", function(req, res) {
 
     medicaldb.medicalhistory.create(req.body).then(function(result) {
+      res.json({
+        id: result.dataValues.id
+      })
+    });
+  });
+
+  // Create a new patient
+  app.post("/api/patients/:id", function(req, res) {
+
+    medicaldb.Patient.create(req.body).then(function(result) {
       res.json({
         id: result.dataValues.id
       })

@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="text-center"><span class="fas fa-hospital-alt"></span> Welcome!</h1>
+    <hr>
+    <h3 class="text-center">What would you like to do today?</h3>
+    <br>
+    <div class='text-center'>
+      <a href="/">
+        <button class="btn btn-primary btn-lg"><i class="fas fa-home"></i> Home Page</button>
+      </a>
+      <a href="/search">
+        <button class="btn btn-info btn-lg"><i class="fas fa-search"></i> Search for a patient</button>
+      </a>
+      <a href="">
+        <button class="btn btn-warning btn-lg"><i class="fas fa-user-lock"></i> Future Admin stuff?</button>
+      </a>
+      <a href="/logout">
+        <button class="btn btn-danger btn-lg"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </a>
+    </div>
+  </div>
+  <div class="jumbotron">
+    <div class="card-deck">
+      {{!-- Card 1 --}}
+      <div class="card">
+        <div class="card-header">Add a new Patient:</div>
+        <div class="card-body">
+          <form id="addPatientForm">
+            <div class="form-group">
+              <label for="">Patient Name</label>
+              <input id="patientName" placeholder="" class="form-control" type="text" oninvalid="this.setCustomValidity('Enter a Patients Name')" oninput="this.setCustomValidity('')" required>
+            </div>
+            <div class="form-group">
+              <label for="">Patient's Doctor</label>
+              <select id="patientDoctor" name="patientDoctor" class="form-control selectpicker show-tick" title="Choose Patient's Doctor" data-style="btn-info" data-live-search="true">
+                {{#each doctors}}
+                  <option value={{this.dataValues.id}}>{{this.dataValues.id}} - {{this.dataValues.name}}
+                  </option>
+                {{/each}}
+              </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Add Patient</button>
+          </form>
+        </div>
+      </div>
+      {{!-- Card 2 --}}
+      <div class="card">
+        <div class="card-header">Results:</div>
+        <div class="card-body">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="footer">
+    <footer>
+      <a href="https://github.com/SandeshCharka/hospital-records">Github Repo</a>
+    </footer>
+  </div>
+</div>
+
+<script src="/js/addpatient.js"></script>
